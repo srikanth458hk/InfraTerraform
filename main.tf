@@ -1,5 +1,5 @@
 provider "aws" {
-    region = "var.region"
+    region = "ap-south-1"
   
 }
 
@@ -8,14 +8,7 @@ provider "aws" {
 
 resource "aws_instance" "web" {
   ami           = "ami-03f65b8614a860c29"
-  instance_type = var.instance_type
+  instance_type = "t2.micro"
 }
 
-variable "region" {
 
-  
-}
-
-variable "instance_type" {
-  
-}
