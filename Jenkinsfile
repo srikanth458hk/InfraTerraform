@@ -3,6 +3,7 @@ pipeline {
     
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['dev', 'uat', 'prod'], description: 'Select the target environment')
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Enter the branch name for the selected environment')
     }
 
     stages {
@@ -10,6 +11,18 @@ pipeline {
             steps {
                 script {
                     sh 'terraform init'
+                }
+            }
+        }
+        
+        stage('Checkout Terraform Scripts') {
+            steps {
+                script {
+                    // Define the repository URL for your Terraform scripts
+                    def terraformRepoURL = 'https://github.com/srikanth458hk/InfraTerraform.git'
+                    
+                    // Checkout the selected branch for the target environment
+                    git branch: "${params.BRANCH}", url: terraformRepoURL
                 }
             }
         }
